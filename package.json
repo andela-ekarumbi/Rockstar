@@ -1,0 +1,38 @@
+{
+  "name": "Rockstar",
+  "version": "0.0.0",
+  "description": "A simple REST API endpoint for adding, viewing, updating and deleting users",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andela-emkarumbi/Rockstar.git"
+  },
+  "keywords": [
+    "Rockstar"
+  ],
+  "author": "Eston Karumbi",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/andela-emkarumbi/Rockstar/issues"
+  },
+  "dependencies": {
+    "express": "~4.13.3",
+    "ejs": "~2.3.4",
+    "directory": "~0.1.0",
+    "serve-static": "~1.10.0",
+    "jasmine": "~2.4.1",
+    "body-parser": "~1.14.1",
+    "morgan": "~1.6.1",
+    "jsonwebtoken": "~5.4.1",
+    "bcryptjs": "~2.3.0",
+    "mongoose": "~4.3.1",
+    "bluebird": "~3.0.6"
+  },
+  "devDependencies": {
+    "mocha": "~2.3.4",
+    "frisby": "~0.8.5"
+  }
+}
