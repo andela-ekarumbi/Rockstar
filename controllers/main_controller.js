@@ -30,10 +30,8 @@ controller.protectedRoutes = express.Router();
 
 controller.protectedRoutes.use(function (request, response, next) {
 
-	// For simplicity, the security token should be appended as a query string 
-	// variable, even when the request is a POST, PUT or DELETE.
 
-	var token = request.query.token;
+	var token = request.headers['token'];
 
 	if (token) {
 
@@ -66,7 +64,7 @@ controller.protectedRoutes.use(function (request, response, next) {
 
 // PUT route for modifying users
 
-controller.protectedRoutes.put('/:name?', function (request, response) {
+controller.protectedRoutes.put('/:name', function (request, response) {
 
 	var body = request.body,
 		name = request.params.name,
@@ -94,11 +92,7 @@ controller.protectedRoutes.put('/:name?', function (request, response) {
 
 			if (!error) { // query executed successfully
 
-				response.status(200).json({
-					success: true,
-					user: body,
-					message: 'User ' + name + ' modified successfully'
-				});
+				response.status(200).json(body);
 
 			} else {
 
@@ -124,7 +118,7 @@ controller.protectedRoutes.put('/:name?', function (request, response) {
 });
 
 // DELETE route for deleting users
-controller.protectedRoutes.delete('/:name?', function (request, response) {
+controller.protectedRoutes.delete('/:name', function (request, response) {
 
 	var username = request.params.name,
 		token = request.decodedToken;
@@ -197,10 +191,7 @@ controller.getUserRoute = function (request, response) {
 
 		if (!error && user && user.username) {
 
-			response.status(200).json({
-				success: true,
-				user: user
-			});
+			response.status(200).json(user);
 
 		} else {
 
@@ -228,10 +219,7 @@ controller.getAllRoute = function (request, response) {
 
 		if (!error && users && users.length > 0) {
 
-			response.status(200).json({
-				success: true,
-				users: users
-			});
+			response.status(200).json(users);
 
 		} else {
 
@@ -287,11 +275,7 @@ controller.userAddRoute = function (request, response) {
 
 						if (!err) {
 
-							response.status(201).json({
-								success: true,
-								user: user,
-								message: 'User ' + body.username + ' added successfully'
-							});
+							response.status(201).json(user);
 
 						}
 

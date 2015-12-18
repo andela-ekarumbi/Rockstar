@@ -1,3 +1,5 @@
+'use strict';
+
 (function () {
 	var request = require('request'),
 		urlBase = 'http://127.0.0.1:3000/',
@@ -36,10 +38,10 @@
 
 		// Test for users POST method
 
-		it('POST /api/users/add should add a user to the database and return a JSON' +
+		it('POST /api/users/ should add a user to the database and return a JSON' +
 			' object containing the user that was added', function (done) {
 
-				request.post({url: urlBase + 'api/users/add', form: sampleUser}, function (error, response, body) {
+				request.post({url: urlBase + 'api/users/', form: sampleUser}, function (error, response, body) {
 
 					if (!error) {
 
@@ -108,10 +110,10 @@
 
 		// Test for authentication POST method
 
-		it('POST /api/users/authenticate should return a JSON object containing' +
+		it('POST /api/login should return a JSON object containing' +
 			' a security token, on successful authentication.', function (done) {
 
-				request.post({url: urlBase + 'api/users/authenticate', form: sampleUser}, function (error, response, body) {
+				request.post({url: urlBase + 'api/login', form: sampleUser}, function (error, response, body) {
 
 					if (!error) {
 
@@ -140,11 +142,13 @@
 			' object containing confirmation of a successful operation.', function (done) {
 
 				var modifiedName = 'Kimende wa Kimendeeri',
-					putUrl = urlBase + 'api/users/' + sampleUsername + '/?token=' + sampleSecurityToken;
+					putUrl = urlBase + 'api/users/' + sampleUsername;
 
 				sampleUser.lastName = modifiedName;
 
-				request.put({url: putUrl, form: sampleUser}, function (error, response, body) {
+				request.put({url: putUrl, form: sampleUser, headers: {
+						token: sampleSecurityToken
+					}}, function (error, response, body) {
 
 					if (!error) {
 
@@ -188,9 +192,11 @@
 		it('DELETE /api/users/{name} should delete a user and return a JSON object' +
 			' containing confirmation of a successful operation', function (done) {
 
-				var delUrl = urlBase + 'api/users/' + sampleUsername + '/?token=' + sampleSecurityToken;
+				var delUrl = urlBase + 'api/users/' + sampleUsername;
 
-				request.del(delUrl, function (error, response, body) {
+				request.del({url: delUrl, headers: {
+						token: sampleSecurityToken
+					}}, function (error, response, body) {
 
 					if (!error) {
 
