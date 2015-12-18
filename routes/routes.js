@@ -5,7 +5,7 @@ var express = require('express'),
 // Define route table
 
 router.get('/', function (request, response) {
-	response.send('Path to API: /api/users');
+	response.status(200).send('Path to API: /api/users');
 });
 router.get('/api/test', controller.testRoute);
 router.get('/api/users/', controller.getAllRoute);

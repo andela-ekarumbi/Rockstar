@@ -94,14 +94,15 @@ controller.protectedRoutes.put('/:name?', function (request, response) {
 
 			if (!error) { // query executed successfully
 
-				response.json({
+				response.status(200).json({
 					success: true,
+					user: body,
 					message: 'User ' + name + ' modified successfully'
 				});
 
 			} else {
 
-				response.json({
+				response.status(404).json({
 					success: false,
 					message: 'User ' + name + ' not found'
 				});
@@ -151,7 +152,7 @@ controller.protectedRoutes.delete('/:name?', function (request, response) {
 
 					if (!err) {
 
-						response.json({
+						response.status(200).json({
 							success: true,
 							message: 'User ' + username + ' deleted successfully'
 						});
@@ -162,7 +163,7 @@ controller.protectedRoutes.delete('/:name?', function (request, response) {
 
 			} else {
 
-				response.json({
+				response.status(404).json({
 					success: false,
 					message: 'User ' + username + ' not found'
 				});
@@ -196,7 +197,7 @@ controller.getUserRoute = function (request, response) {
 
 		if (!error && user && user.username) {
 
-			response.json({
+			response.status(200).json({
 				success: true,
 				user: user
 			});
@@ -227,7 +228,7 @@ controller.getAllRoute = function (request, response) {
 
 		if (!error && users && users.length > 0) {
 
-			response.json({
+			response.status(200).json({
 				success: true,
 				users: users
 			});
@@ -286,8 +287,9 @@ controller.userAddRoute = function (request, response) {
 
 						if (!err) {
 
-							response.json({
+							response.status(201).json({
 								success: true,
+								user: user,
 								message: 'User ' + body.username + ' added successfully'
 							});
 
@@ -336,7 +338,7 @@ controller.authRoute = function (request, response) {
 					audience: username
 				});
 
-				response.json({
+				response.status(200).json({
 					success: true,
 					message: 'Authentication successful',
 					token: token
@@ -372,9 +374,3 @@ controller.testRoute = function (request, response) {
 // Export routes
 
 module.exports = controller;
-// module.exports.testRoute = testRoute;
-// module.exports.userAddRoute = userAddRoute;
-// module.exports.getAllRoute = getAllRoute;
-// module.exports.protectedRoutes = protectedRoutes;
-// module.exports.getUserRoute = getUserRoute;
-// module.exports.authRoute = authRoute;
