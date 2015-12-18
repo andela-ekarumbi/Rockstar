@@ -50,8 +50,7 @@
 						if (typeof body === 'string')
 							body = JSON.parse(body);
 
-						expect(body.success).toBeTruthy();
-						expect(body.user.username).toBe(sampleUsername);
+						expect(body.username).toBe(sampleUsername);
 
 						done();
 
@@ -76,8 +75,7 @@
 						if (typeof body === 'string')
 							body = JSON.parse(body);
 
-						expect(body.success).toBeTruthy();
-						expect(Array.isArray(body.users)).toBeTruthy();
+						expect(Array.isArray(body)).toBeTruthy();
 
 						done();
 
@@ -98,8 +96,7 @@
 						if (typeof body === 'string')
 							body = JSON.parse(body);
 
-						expect(body.success).toBeTruthy();
-						expect(body.user.username).toBe(sampleUsername);
+						expect(body.username).toBe(sampleUsername);
 
 						done();
 
@@ -122,7 +119,6 @@
 						if (typeof body === 'string')
 							body = JSON.parse(body);
 
-						expect(body.success).toBeTruthy();
 						expect(body.token).toBeTruthy();
 
 						sampleSecurityToken = body.token;
@@ -157,8 +153,6 @@
 						if (typeof body === 'string')
 							body = JSON.parse(body);
 
-						expect(body.success).toBeTruthy();
-
 						request.get(urlBase + 'api/users/' + sampleUsername, function (err, resp, bdy) {
 
 							if (!err) {
@@ -168,9 +162,8 @@
 								if (typeof bdy === 'string')
 									bdy = JSON.parse(bdy);
 
-								expect(bdy.success).toBeTruthy();
-								expect(bdy.user.lastName).toBe(modifiedName);
-								expect(bdy.user.username).toBe(sampleUsername);
+								expect(bdy.lastName).toBe(modifiedName);
+								expect(bdy.username).toBe(sampleUsername);
 
 								done();
 
@@ -201,13 +194,6 @@
 					if (!error) {
 
 						expect(response.statusCode).toBe(200);
-
-						console.log(body);
-
-						if (typeof body === 'string')
-							body = JSON.parse(body);
-
-						expect(body.success).toBeTruthy();
 
 						request.get(urlBase + 'api/users/' + sampleUsername, function (err, resp, bdy) {
 
