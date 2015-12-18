@@ -188,8 +188,47 @@
 		it('DELETE /api/users/{name} should delete a user and return a JSON object' +
 			' containing confirmation of a successful operation', function (done) {
 
-				
+				var delUrl = urlBase + 'api/users/' + sampleUsername + '/?token=' + sampleSecurityToken;
+
+				request.del(delUrl, function (error, response, body) {
+
+					if (!error) {
+
+						expect(response.statusCode).toBe(200);
+
+						console.log(body);
+
+						if (typeof body === 'string')
+							body = JSON.parse(body);
+
+						expect(body.success).toBeTruthy();
+
+						request.get(urlBase + 'api/users/' + sampleUsername, function (err, resp, bdy) {
+
+							if (!err) {
+
+								expect(resp.statusCode).toBe(200);
+
+								if (typeof bdy === 'string')
+									bdy = JSON.parse(bdy);
+
+								expect(bdy.success).toBeFalsy();
+
+								done();
+
+							} else {
+								throw err;
+							}
+
+						});
+
+					} else {
+						throw error;
+					}
+
+				});
 		});
+
 	});
 
 })();
